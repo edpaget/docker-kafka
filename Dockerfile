@@ -1,19 +1,19 @@
-# DOCKER-VERSION 0.6.1
-# VERSION 0.1
+# DOCKER-VERSION 0.9.0
+# VERSION 0.2
 
-FROM ubuntu
+FROM ubuntu:12.04
 MAINTAINER Edward Paget <ed@zooniverse.org>
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get upgrade -y
 
-RUN apt-get install -y -q openjdk-7-jre-headless curl 
-RUN curl -o /opt/kafka_2.8.0-0.8.0-beta1.tgz https://dist.apache.org/repos/dist/release/kafka/kafka_2.8.0-0.8.0-beta1.tgz 
-RUN tar -xzf /opt/kafka_2.8.0-0.8.0-beta1.tgz -C /opt/
-RUN curl -o /usr/local/bin/kafka-start.sh http://ubret.s3.amazonaws.com/kafka-start.sh
-RUN chmod +x /usr/local/bin/kafka-start.sh
-
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+RUN apt-get install -y -q openjdk-7-jre-headless wget
+RUN wget -q -O /opt/kafka_2.9.2-0.8.1.tgz http://mirror.symnds.com/software/Apache/kafka/0.8.1/kafka_2.9.2-0.8.1.tgz 
+RUN tar -xzf /opt/kafka_2.9.2-0.8.1.tgz -C /opt
+ADD start_kafka.sh /opt/start_kafka.sh
+RUN chmod +x /opt/start_kafka.sh
 
 EXPOSE 9092
+
+ENTRYPOINT ["./opt/start_kafka.sh"]
