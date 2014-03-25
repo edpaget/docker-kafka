@@ -25,7 +25,7 @@ KAFKA_VERSION=2.9.2-0.8.1
 while getopts "hz:i:H:p:" OPTION
 do
   case $OPTION in
-    b)
+    h)
       usage
       exit 1
       ;;
