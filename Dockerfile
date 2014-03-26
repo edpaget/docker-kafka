@@ -8,9 +8,11 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt
 RUN apt-get update
 RUN apt-get upgrade -y
 
-RUN apt-get install -y -q openjdk-7-jre-headless wget
+RUN apt-get install -y -q openjdk-7-jre-headless wget supervisor
 RUN wget -q -O /opt/kafka_2.9.2-0.8.1.tgz http://mirror.symnds.com/software/Apache/kafka/0.8.1/kafka_2.9.2-0.8.1.tgz 
 RUN tar -xzf /opt/kafka_2.9.2-0.8.1.tgz -C /opt
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+VOLUME "/opt/kafka"
 ADD start_kafka.sh /opt/start_kafka.sh
 RUN chmod +x /opt/start_kafka.sh
 
