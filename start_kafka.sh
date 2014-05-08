@@ -48,7 +48,7 @@ do
   esac
 done
 
-if [[ -z $ZKS ]] 
+if [[ -z $ZKS ]];
 then
   ZKS=$ZK_PORT_2181_TCP_ADDR
 fi
